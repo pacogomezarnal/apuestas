@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class Equipo {
+public class Equipo implements Serializable{
 	
 	//atributos del Equipo
 	private String nombreEquipo;
