@@ -39,4 +39,20 @@ public class VentanaEquipo extends JFrame {
 		//Creacion del equipo
 		equipo=new Equipo("",0,0,0,0);
 	}
+	
+	private void guardarEnFichero(){
+		ObjectOutputStream salida;
+		try// abre el archivo
+		{
+			salida = new ObjectOutputStream(new FileOutputStream( "clientes.ser") );
+			salida.writeObject( equipo ); // envía el registro como salida
+			if( salida != null)
+				salida.close();
+		}// fin de try
+		catch( IOException ioException )
+		{
+			System.err.println("Error al abrir el archivo.");
+		}// fin de catch
+	}// fin del método guardarEnFichero
+			
 }
