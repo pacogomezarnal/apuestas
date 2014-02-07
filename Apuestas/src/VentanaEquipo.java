@@ -15,6 +15,8 @@ public class VentanaEquipo extends JFrame {
 
 	private JPanel contentPane;
 	private Equipo equipo;
+	private JLabel lblNombre ;
+	private JLabel label ;
 
 
 	/**
@@ -28,11 +30,11 @@ public class VentanaEquipo extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNombre = new JLabel("Nombre del Equipo");
+		lblNombre = new JLabel("Nombre del Equipo");
 		lblNombre.setBounds(10, 33, 106, 14);
 		contentPane.add(lblNombre);
 		
-		JLabel label = new JLabel("Nombre del Equipo");
+		label = new JLabel("Nombre del Equipo");
 		label.setBounds(10, 70, 106, 14);
 		contentPane.add(label);
 		
