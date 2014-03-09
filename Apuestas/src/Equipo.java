@@ -17,6 +17,14 @@ public class Equipo implements Serializable{
 		partidosGanados=partidosG;
 		partidosPerdidos=partidosP;
 	}
+	public Equipo(){
+		// Inicialización
+		nombreEquipo="";
+		golesFavor=0;
+		golesEnContra=0;
+		partidosGanados=0;
+		partidosPerdidos=0;		
+	}
 	
 	//Entrada y salida de atributos
 	public void setNombre(String nom){
