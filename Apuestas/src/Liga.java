@@ -1,28 +1,23 @@
 import java.io.Serializable;
+import java.util.ArrayList;
 
 
 public class Liga implements Serializable{
 	private int numEquipos;
-	private Equipo equipos[];
+	private ArrayList<Equipo> equipos=new ArrayList<Equipo>();
 	private String nombreLiga;
 
 	public Liga() {
-		numEquipos=20;
-		equipos=new Equipo[numEquipos];
+		numEquipos=0;
 		nombreLiga="Liga Futbol Española";
-		for (int i=0;i<numEquipos;i++)
-		{
-			equipos[i]=new Equipo();
-		}
 	}
 	
 	public Liga(int numero,String nombre) {
 		numEquipos=numero;
 		nombreLiga=nombre;
-		equipos=new Equipo[numEquipos];
 		for (int i=0;i<numEquipos;i++)
 		{
-			equipos[i]=new Equipo();
+			equipos.add(new Equipo());
 		}
 	}
 	
@@ -40,11 +35,16 @@ public class Liga implements Serializable{
 	
 	public Equipo getEquipo(int posicion)
 	{
-		return equipos[posicion];
+		return equipos.get(posicion);
 	}
-	public void setEquipo(Equipo equipo,int posicion)
+	public void newEquipo()
 	{
-		equipos[posicion]=equipo;
+		equipos.add(new Equipo());
+		numEquipos++;
+	}
+	public void deleteEquipo(int posicion)
+	{
+		equipos.remove(posicion);
 	}
 	
 }

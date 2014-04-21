@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -27,6 +28,8 @@ public class VentanaEquipo extends JFrame {
 	//Controles de la ventana
 	private JPanel contentPane;
 	private Equipo equipo;
+	private VentanaLiga vLiga;
+	private JComboBox jLiga;
 	private JLabel lblNombre ;
 	private JTextField equipo_lbl_txt;
 	private JTextField golesFav_lbl_txt;
@@ -34,6 +37,7 @@ public class VentanaEquipo extends JFrame {
 	private JTextField partiGan_lbl_txt;
 	private JTextField partidosPerd_lbl_txt;
 	private JButton btnGuardar;
+	private boolean modifica;
 	
 	//Objetos de lectura de ficheros
 	private ObjectOutputStream salida;
@@ -44,14 +48,15 @@ public class VentanaEquipo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaEquipo(Equipo equipoAModificar) {
+	public VentanaEquipo(Equipo equipoAModificar,JComboBox jLiga,boolean modifica) {
 
 		//Asignacion del equipo
 		equipo=equipoAModificar;
-		
+		this.jLiga=jLiga;
+		this.modifica=modifica;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 262);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -102,27 +107,6 @@ public class VentanaEquipo extends JFrame {
 		partidosPerd_lbl_txt.setBounds(126, 182, 130, 20);
 		contentPane.add(partidosPerd_lbl_txt);
 		
-		JButton btnNewButton = new JButton("Guardar en disco");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				guardarEquipo();
-				guardarEnFichero();
-			}
-		});
-		btnNewButton.setBounds(10, 228, 122, 23);
-		contentPane.add(btnNewButton);
-		
-		JButton btnLeer = new JButton("Leer de disco");
-		btnLeer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				recuperarFichero();
-				equipo_lbl_txt.setText(equipo.getNombre());
-				golesCon_lbl_txt.setText(String.valueOf(equipo.getGolesContra()));
-			}
-		});
-		btnLeer.setBounds(142, 228, 114, 23);
-		contentPane.add(btnLeer);
-		
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -144,6 +128,14 @@ public class VentanaEquipo extends JFrame {
 		equipo.setNombre(equipo_lbl_txt.getText());
 		equipo.setPartidosGanados(Integer.valueOf(partiGan_lbl_txt.getText()));
 		equipo.setPartidosPerdidos(Integer.valueOf(partidosPerd_lbl_txt.getText()));
+		if(!modifica)
+			jLiga.addItem(equipo);
+		else
+		{
+			Equipo equipoElegido=(Equipo)jLiga.getSelectedItem();
+			equipoElegido.setNombre(equipo.getNombre());
+		}
+		
 	}
 	
 	//Metodo que pone datos desde objeto equipo

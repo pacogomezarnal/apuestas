@@ -66,4 +66,8 @@ public class Equipo implements Serializable{
 	public int getPartidosPerdidos(){
 		return partidosPerdidos;
 	}
+	public String toString()
+	{
+		return nombreEquipo;
+	}
 }
