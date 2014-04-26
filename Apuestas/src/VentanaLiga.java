@@ -35,7 +35,7 @@ public class VentanaLiga extends JFrame {
 		vLiga=this;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 382, 240);
+		setBounds(100, 100, 427, 240);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -47,17 +47,18 @@ public class VentanaLiga extends JFrame {
 		
 		textField = new JTextField();
 		textField.setBounds(10, 43, 235, 20);
+		textField.setText(liga.getnombreLiga());
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
 		JLabel lblNmeroDeEquipos = new JLabel("N\u00FAmero de equipos");
-		lblNmeroDeEquipos.setBounds(256, 21, 100, 14);
+		lblNmeroDeEquipos.setBounds(301, 21, 100, 14);
 		contentPane.add(lblNmeroDeEquipos);
 		
 		textField_1 = new JTextField();
 		textField_1.setEnabled(false);
 		textField_1.setColumns(10);
-		textField_1.setBounds(271, 43, 86, 20);
+		textField_1.setBounds(315, 43, 86, 20);
 		//Anyadimos numero de equipos
 		textField_1.setText(String.valueOf(liga.getNumEquipos()));
 		contentPane.add(textField_1);

@@ -11,7 +11,9 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import javax.swing.JTabbedPane;
 import javax.swing.border.LineBorder;
+
 import java.awt.Color;
+
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
@@ -19,8 +21,12 @@ import javax.swing.border.TitledBorder;
 import javax.swing.UIManager;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 
 public class Apuestas extends JFrame {
@@ -33,6 +39,9 @@ public class Apuestas extends JFrame {
 	private JButton btnSeguimientoDeApuestas;
 	private VentanaLiga frameLiga;
 	private Liga liga;
+	
+	//DB
+	Connection conexion = null; //maneja la conexión
 
 	/**
 	 * Launch the application.
@@ -54,8 +63,20 @@ public class Apuestas extends JFrame {
 	 * Create the frame.
 	 */
 	public Apuestas() {
+		//Conectarnos a la base de datos
+		try{
+			Class.forName("com.mysql.jdbc.Driver");
+			// establece la conexión a la base de datos
+			conexion = DriverManager.getConnection("jdbc:mysql://localhost/apuestas","root","");
+		}catch( SQLException excepcionSql ){
+			excepcionSql.printStackTrace();
+		}// fin de catch
+		catch( ClassNotFoundException noEncontroClase )
+		{
+			noEncontroClase.printStackTrace();
+		}// fin de catch		
 		//Creamos la liga
-		liga=new Liga();
+		liga=new Liga(conexion);
 		
 		//Modificación de las característias del panel principal
 		setTitle("Administrador de Apuestas");
@@ -105,6 +126,7 @@ public class Apuestas extends JFrame {
 		
 		textField = new JTextField();
 		textField.setBounds(10, 52, 222, 20);
+		textField.setText(liga.getnombreLiga());
 		panel.add(textField);
 		textField.setColumns(10);
 		

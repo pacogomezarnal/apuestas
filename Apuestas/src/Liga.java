@@ -1,20 +1,34 @@
 import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import com.mysql.jdbc.Statement;
 
 
 public class Liga implements Serializable{
 	private int numEquipos;
 	private ArrayList<Equipo> equipos=new ArrayList<Equipo>();
 	private String nombreLiga;
+	private int idLiga;
+	
+	//DB
+	private Connection conexion = null; //maneja la conexión
+	private Statement instruccion = null;// instrucción de consulta
+	private ResultSet conjuntoResultados = null;// maneja los resultados
 
-	public Liga() {
+	public Liga(Connection conexion) {
 		numEquipos=0;
 		nombreLiga="Liga Futbol Española";
+		this.conexion=conexion;
+		leerLiga();
 	}
 	
-	public Liga(int numero,String nombre) {
+	public Liga(Connection conexion,int numero,String nombre) {
 		numEquipos=numero;
 		nombreLiga=nombre;
+		this.conexion=conexion;
 		for (int i=0;i<numEquipos;i++)
 		{
 			equipos.add(new Equipo());
@@ -45,6 +59,21 @@ public class Liga implements Serializable{
 	public void deleteEquipo(int posicion)
 	{
 		equipos.remove(posicion);
+	}
+	
+	private void leerLiga(){
+		try{
+			// consulta la base de datos
+			instruccion = (Statement) conexion.createStatement();
+			conjuntoResultados = instruccion.executeQuery("SELECT idLiga,nombre,numEquipos FROM ligas LIMIT 1");
+			conjuntoResultados.next();
+			// Almacenar liga
+			this.idLiga=(int)conjuntoResultados.getObject("idLiga");
+			this.nombreLiga=(String)conjuntoResultados.getObject("nombre");
+			this.numEquipos=(int)conjuntoResultados.getObject("numEquipos");
+		}catch( SQLException excepcionSql ){
+			excepcionSql.printStackTrace();
+		}// fin
 	}
 	
 }
