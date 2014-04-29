@@ -28,6 +28,7 @@ public class VentanaEquipo extends JFrame {
 	//Controles de la ventana
 	private JPanel contentPane;
 	private Equipo equipo;
+	private Liga liga;
 	private VentanaLiga vLiga;
 	private JComboBox jLiga;
 	private JLabel lblNombre ;
@@ -48,12 +49,13 @@ public class VentanaEquipo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaEquipo(Equipo equipoAModificar,JComboBox jLiga,boolean modifica) {
+	public VentanaEquipo(Equipo equipoAModificar,JComboBox jLiga,boolean modifica,Liga liga) {
 
 		//Asignacion del equipo
 		equipo=equipoAModificar;
 		this.jLiga=jLiga;
 		this.modifica=modifica;
+		this.liga=liga;
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 262);
@@ -129,9 +131,10 @@ public class VentanaEquipo extends JFrame {
 		equipo.setPartidosGanados(Integer.valueOf(partiGan_lbl_txt.getText()));
 		equipo.setPartidosPerdidos(Integer.valueOf(partidosPerd_lbl_txt.getText()));
 		if(!modifica)
-			jLiga.addItem(equipo);
-		else
 		{
+			jLiga.addItem(equipo);
+			this.liga.newEquipoDB(equipo);
+		}else{
 			Equipo equipoElegido=(Equipo)jLiga.getSelectedItem();
 			equipoElegido.setNombre(equipo.getNombre());
 		}

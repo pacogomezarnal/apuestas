@@ -56,6 +56,20 @@ public class Liga implements Serializable{
 		equipos.add(new Equipo());
 		numEquipos++;
 	}
+	public void newEquipoDB(Equipo equipo)
+	{
+		try{
+			// consulta la base de datos
+			instruccion = (Statement) conexion.createStatement();
+			// insercion en base de datos
+			String sql_inst="INSERT INTO equipos ( idLiga,nombreEquipo,golesFavor,golesEnContra,partidosGanados,partidosPerdidos )";
+			sql_inst=sql_inst+ "VALUES( "+idLiga+",'"+equipo.getNombre()+"',"+equipo.getGolesFavor()+","+equipo.getGolesContra()+","+equipo.getPartidosGanados()+","+equipo.getPartidosPerdidos()+")";
+			System.out.println(sql_inst);
+			instruccion.executeUpdate(sql_inst);
+		}catch( SQLException excepcionSql ){
+			excepcionSql.printStackTrace();
+		}// fin
+	}
 	public void deleteEquipo(int posicion)
 	{
 		equipos.remove(posicion);

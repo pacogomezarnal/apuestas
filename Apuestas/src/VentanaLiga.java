@@ -87,6 +87,7 @@ public class VentanaLiga extends JFrame {
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				liga.newEquipo();
+				System.out.println(liga.getNumEquipos()-1);
 				openEquipoWindow(liga.getEquipo(liga.getNumEquipos()-1),false);
 			}
 		});
@@ -100,7 +101,7 @@ public class VentanaLiga extends JFrame {
 	
 	private void openEquipoWindow(Equipo equipo,boolean modifica)
 	{
-		frameEquipo = new VentanaEquipo(equipo,this.comboBox,modifica);
+		frameEquipo = new VentanaEquipo(equipo,this.comboBox,modifica,this.liga);
 		frameEquipo.setVisible(true);
 		frameEquipo.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
